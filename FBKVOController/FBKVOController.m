@@ -424,8 +424,8 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   // check for info existence
   _FBKVOInfo *existingInfo = [infos member:info];
   if (nil != existingInfo) {
-    NSLog(@"observation info already exists %@", existingInfo);
-    
+//    NSLog(@"observation info already exists %@", existingInfo);
+
     // unlock and return
     OSSpinLockUnlock(&_lock);
     return;
