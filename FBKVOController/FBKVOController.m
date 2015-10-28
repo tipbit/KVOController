@@ -169,10 +169,6 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-#if DEBUG
-  NSAssert(context, @"missing context keyPath:%@ object:%@ change:%@", keyPath, object, change);
-#endif
-
   // take strong reference to controller
   FBKVOController *controller = self->_controller;
   if (nil != controller) {
