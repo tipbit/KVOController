@@ -85,7 +85,7 @@
 		ECEA610118A49C620064AFF4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ECEA610518A49C620064AFF4 /* FBKVOController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FBKVOController-Prefix.pch"; sourceTree = "<group>"; };
 		ECEA610618A49C620064AFF4 /* FBKVOController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
-		ECEA610818A49C620064AFF4 /* FBKVOController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; tabWidth = 4; };
+		ECEA610818A49C620064AFF4 /* FBKVOController.m */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; tabWidth = 4; };
 		ECEA610E18A49C620064AFF4 /* FBKVOControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FBKVOControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECEA610F18A49C620064AFF4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		ECEA611218A49C620064AFF4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };

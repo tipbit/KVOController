@@ -167,6 +167,35 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   return [_keyPath isEqualToString:((_FBKVOInfo *)object)->_keyPath];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+#if DEBUG
+  NSAssert(context, @"missing context keyPath:%@ object:%@ change:%@", keyPath, object, change);
+#endif
+
+  // take strong reference to controller
+  FBKVOController *controller = self->_controller;
+  if (nil != controller) {
+
+    // take strong reference to observer
+    id observer = controller.observer;
+    if (nil != observer) {
+
+      // dispatch custom block or action, fall back to default action
+      if (self->_block) {
+        self->_block(observer, object, change);
+      } else if (self->_action) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [observer performSelector:self->_action withObject:change withObject:object];
+#pragma clang diagnostic pop
+      } else {
+        [observer observeValueForKeyPath:keyPath ofObject:object change:change context:self->_context];
+      }
+    }
+  }
+}
+
 - (NSString *)debugDescription
 {
   NSMutableString *s = [NSMutableString stringWithFormat:@"<%@:%p keyPath:%@", NSStringFromClass([self class]), self, _keyPath];
@@ -283,7 +312,7 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   OSSpinLockUnlock(&_lock);
   
   // add observer
-  [object addObserver:self forKeyPath:info->_keyPath options:info->_options context:(void *)info];
+  [object addObserver:info forKeyPath:info->_keyPath options:info->_options context:NULL];
 }
 
 - (void)unobserve:(id)object info:(_FBKVOInfo *)info
@@ -298,7 +327,7 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   OSSpinLockUnlock(&_lock);
   
   // remove observer
-  [object removeObserver:self forKeyPath:info->_keyPath context:(void *)info];
+  [object removeObserver:info forKeyPath:info->_keyPath context:NULL];
 }
 
 - (void)unobserve:(id)object infos:(NSSet *)infos
@@ -316,7 +345,7 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   
   // remove observer
   for (_FBKVOInfo *info in infos) {
-    [object removeObserver:self forKeyPath:info->_keyPath context:(void *)info];
+    [object removeObserver:info forKeyPath:info->_keyPath context:NULL];
   }
 }
 
